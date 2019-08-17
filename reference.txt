@@ -1,0 +1,270 @@
+https://pastebin.ubuntu.com/p/kt8wWs2KtS/
+
+https://pastebin.ubuntu.com/p/QNhD63RY3B/
+
+https://pastebin.ubuntu.com/p/xwkwDDkMzC/     ------   Methods
+
+https://pastebin.ubuntu.com/p/TVzTJSzsCK/
+
+https://pastebin.ubuntu.com/p/GXhBvYWymS/
+
+https://pastebin.ubuntu.com/p/PhmWRgmhFy/     ------  select Dao
+
+https://github.com/demomurali/springex1
+
+https://pastebin.ubuntu.com/p/F7B9n9HtM2
+
+
+https://pastebin.ubuntu.com/p/VSBcGwfgHv
+
+https://pastebin.ubuntu.com/p/FBVz5XpSzM
+
+https://pastebin.ubuntu.com/p/7vJzYC4qyq
+
+https://pastebin.ubuntu.com/p/397cwVN7Mp
+
+
+
+---------------------Spring---------------------
+
+https://github.com/demomurali/stockpricing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+MVC stands for Model, View and Controller. MVC separates application into three components - Model, View and Controller.
+Model: Model represents shape of the data and business logic. It maintains the data of the application. Model objects retrieve and store model state in a database.
+Model is a data and business logic.
+View: View is a user interface. View display data using model to the user and also enables them to modify the data.
+View is a User Interface.
+Controller: Controller handles the user request. Typically, user interact with View, which in-turn raises appropriate URL request, this request will be handled by a controller. The controller renders the appropriate view with the model data as a response.
+Controller is a request handler.
+
+
+
+Spring Web MVC framework
+The Spring Web model-view-controller (MVC) framework is designed around a DispatcherServlet that dispatches requests to handlers, with configurable handler mappings, view resolution, locale and theme resolution as well as support for uploading files. The default handler is based on the @Controller and @RequestMapping annotations, offering a wide range of flexible handling methods. With the introduction of Spring 3.0, the @Controller mechanism also allows you to create RESTful Web sites and applications, through the @PathVariable annotation and other features.
+
+The @Controller annotation acts as a stereotype for the annotated class, indicating its role. The dispatcher scans such annotated classes for mapped methods and detects @RequestMapping annotations 
+
+ the @RequestMapping annotation to map URLs such as /appointments onto an entire class or a particular handler method. Typically the class-level annotation maps a specific request path (or path pattern) onto a form controller, with additional method-level annotations narrowing the primary mapping for a specific HTTP method request method ("GET", "POST", etc.) or an HTTP request parameter condition.
+
+
+@RestController indicates that the data returned by each method will be written straight into the response body instead of rendering a template
+
+http://localhost:8080
+
+The @PathVariable annotation on a method argument to bind it to the value of a URI template variable:
+
+@Controller
+@RequestMapping("/owners/{ownerId}")
+public class RelativePathUriTemplateController {
+
+  @RequestMapping("/pets/{petId}")
+  public void findPet(@PathVariable String ownerId, @PathVariable String petId, Model model) {
+    // implementation omitted
+  }
+}
+
+
+
+
+
+The @RequestParam annotation to bind request parameters to a method parameter in your controller
+http://localhost:8080/pets?petId=1001&petName=toffee
+Controller
+@RequestMapping("/pets")
+public class EditPetForm {
+
+    // ...
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String setupForm(@RequestParam("petId") int petId,@RequestParam("petName”) String petName,  ModelMap model) {
+        Pet pet = this.clinic.loadPet(petId);
+        model.addAttribute("pet", pet);
+        return "petForm";
+    }
+
+
+
+
+The @RequestBody method parameter annotation indicates that a method parameter should be bound to the value of the HTTP request body. For example:
+@RequestMapping(value = "/something", method = RequestMethod.PUT)
+public void handle(@RequestBody String body, Writer writer) throws IOException {
+  writer.write(body);
+}
+
+
+The @ResponseBody annotation is similar to @RequestBody. This annotation can be put on a method and indicates that the return type should be written straight to the HTTP response body (and not placed in a Model, or interpreted as a view name). For example:
+@RequestMapping(value = "/something", method = RequestMethod.PUT)
+@ResponseBody
+public String helloWorld()  {
+  return "Hello World";
+}
+
+
+
+
+@ModelAttribute on a method
+The @ModelAttribute annotation can be used on methods or on method arguments. This section explains its usage on methods while the next section explains its usage on method arguments.
+An @ModelAttribute on a method indicates the purpose of that method is to add one or more model attributes. Such methods support the same argument types as @RequestMapping methods but cannot be mapped directly to requests. Instead @ModelAttribute methods in a controller are invoked before @RequestMapping methods, within the same controller. A couple of examples:
+// Add one attribute
+// The return value of the method is added to the model under the name "account"
+// You can customize the name via @ModelAttribute("myAccount")
+
+@ModelAttribute(“account”)
+public Account addAccount() {
+    return accountManager.findAccount(number);
+}
+
+// model.addObject(“account”, accountManager.findAccount(number))
+
+
+
+@ModelAttribute on a method argument
+As explained in the previous section @ModelAttribute can be used on methods or on method arguments. This section explains its usage on method arguments.
+An @ModelAttribute on a method argument indicates the argument should be retrieved from the model. If not present in the model, the argument should be instantiated first and then added to the model. Once present in the model, the argument's fields should be populated from all request parameters that have matching names. This is known as data binding in Spring MVC, a very useful mechanism that saves you from having to parse each form field individually.
+@RequestMapping(value="/owners/{ownerId}/pets/{petId}/edit", method = RequestMethod.POST)
+public String processSubmit(@ModelAttribute Pet pet) {
+
+}
+
+
+result of data binding there may be errors such as missing required fields or type conversion errors. To check for such errors add a BindingResult argument immediately following the @ModelAttribute argument:
+@PostMapping(value="/owners/{ownerId}/pets/{petId}/edit")
+public String processSubmit(@ModelAttribute("pet") Pet pet, BindingResult result) {
+
+    if (result.hasErrors()) {
+        return "petForm";
+    }
+
+    // ...
+
+}
+
+We have routes for each operations (@GetMapping, @PostMapping, @PutMapping and @DeleteMapping, corresponding to HTTP GET, POST, PUT, and DELETE calls). (NOTE: It’s useful to read each method and understand what they do.)
+
+
+
+
+Spring and Spring Boot
+
+Spring Boot is a Spring framework module which provides RAD (Rapid Application Development) feature to the Spring framework. It is highly dependent on the starter templates feature 
+
+
+
+
+What is starter template?
+Spring Boot starters are templates that contain a collection of all the relevant transitive dependenciesthat are needed to start a particular functionality. For example, If you want to create a Spring WebMVC application then in a traditional setup, you would have included all required dependencies yourself. It leaves the chances of version conflict which ultimately result in more runtime exceptions.
+
+<!-- Spring web brings all required dependencies to build web application. -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+</dependency>
+
+Spring boot auto-configuration
+Autoconfiguration is enabled with @EnableAutoConfiguration annotation. Spring boot auto configuration scans the classpath, finds the libraries in the classpath and then attempt to guess the best configuration for them, and finally configure all such beans.
+Auto-configuration tries to be as intelligent as possible and will back-away as you define more of your own configuration.
+Auto-configuration is always applied after user-defined beans have been registered.
+
+ Embedded server
+Spring boot applications always include tomcat as embedded server dependency. It means you can run the Spring boot applications from the command prompt without needling complex server infrastructure.
+
+Bootstrap the application
+To run the application, we need to use @SpringBootApplication annotation. Behind the scenes, that’s equivalent to @Configuration, @EnableAutoConfiguration, and @ComponentScan together.
+It enables the scanning of config classes, files and load them into spring context. In below example, execution start with main() method. It start loading all the config files, configure them and bootstrap the application based on application properties in application.properties file in /resources folder.
+MyApplication.java
+@SpringBootApplication
+public class MyApplication
+{
+    public static void main(String[] args)
+    {
+        SpringApplication.run(Application.class, args);
+    }
+}
+
+application.properties
+### Server port #########
+server.port=8080
+  
+### Context root ########
+server.contextPath=/home
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Maven is a build automation tool used primarily for Java projects.
+Maven addresses two aspects of building software: first, it describes how software is built, and second, it describes its dependencies. 
+
+Maven dynamically downloads Java libraries and Maven plug-ins from one or more repositories such as the Maven 2 Central Repository, and stores them in a local cache
+
+
+Maven is built using a plugin-based architecture that allows it to make use of any application controllable through standard input
+
+
+Directory name
+Purpose
+project home
+Contains the pom.xml and all subdirectories.
+src/main/java
+Contains the deliverable Java sourcecode for the project.
+src/main/resources
+Contains the deliverable resources for the project, such as property files.
+src/test/java
+Contains the testing Java sourcecode (JUnit or TestNG test cases, for example) for the project.
+src/test/resources
+Contains resources necessary for testing.
+
+Project Object Model
+A Project Object Model (POM) provides all the configuration for a single project. General configuration covers the project's name, its owner and its dependencies on other projects. One can also configure individual phases of the build process, which are implemented as plugins. 
+
+Plugins[
+Most of Maven's functionality is in plugins. A plugin provides a set of goals that can be executed using the following syntax:
+ mvn [plugin-name]:[goal-name]
+For example, a Java project can be compiled with the compiler-plugin's compile-goal[10] by running mvn compiler:compile.
+
+Build lifecycles	[edit]
+Build lifecycle is a list of named phases that can be used to give order to goal execution. One of Maven's standard lifecycles is the default lifecycle, which includes the following phases, in this order:[13]
+ 1  validate
+ 2 generate-sources
+ 3 process-sources
+ 4 generate-resources
+ 5  process-resources
+ 6 compile
+ 7 process-test-sources
+ 8 process-test-resources
+ 9 test-compile
+10 test
+11 package
+12 install
+13 deploy

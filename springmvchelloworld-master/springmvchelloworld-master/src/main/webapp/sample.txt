@@ -1,0 +1,25 @@
+public User registerUser(User user) throws Exception {
+	
+		return userService.registerUser(user);
+	}
+
+	
+	public User updateUser(User user) throws Exception {
+	
+		return userService.updateUser(user);
+	}
+	public static void main(String[] args) throws Exception {
+		ApplicationContext applicationContext=new ClassPathXmlApplicationContext("spring.xml");
+		long mobile=8608565912L;
+		User user=(User)applicationContext.getBean("user");
+		user.setId(242412);
+		user.setMobileNumber(mobile);
+		user.setUserName("senthil");
+		user.setPassword("ssss");
+		user.setUserType("U");
+		user.setEmail("senth@gamil.com");
+		user.setConfirmed(true);
+		System.out.println(user);
+		UserController userController=(UserController)applicationContext.getBean("userControllerImpl");
+		userController.registerUser(user);
+	}
